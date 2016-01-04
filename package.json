@@ -37,7 +37,9 @@
     "grunt": "~0.4.5"
   },
   "keywords": [
-    "gruntplugin"
+    "icons8",
+    "font",
+    "icon"
   ],
   "dependencies": {
     "extract-zip": "^1.4.1",

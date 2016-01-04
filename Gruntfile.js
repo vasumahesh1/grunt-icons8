@@ -45,14 +45,33 @@ module.exports = function(grunt) {
     // Unit tests.
     nodeunit: {
       tests: ['test/*_test.js']
-    }
+    },
 
+    release: {
+      options: {
+        changelog: false,
+        add: true,
+        commit: true,
+        tag: false,
+        push: true,
+        pushTags: false,
+        npm: true,
+        npmtag: false,
+        commitMessage: '[Grunt Icons8] Release Commit <%= version %>',
+        tagMessage: 'Release Build <%= version %>',
+        github: {
+          repo: 'vasumahesh1/grunt-icons8',
+          accessTokenVar: 'GITHUB_ACCESS_TOKEN'
+        }
+      }
+    },
   });
 
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
 
   // These plugins provide necessary tasks.
+  grunt.loadNpmTasks('grunt-release');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
