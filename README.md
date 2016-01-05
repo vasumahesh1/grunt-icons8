@@ -27,6 +27,7 @@ grunt.initConfig({
   icons8: {
     dev: {
       options: {
+        prefix: 'my-app',
         cssExportPath: 'css/',
         fontExportPath: 'output/',
         fontFilename: 'myFont',
@@ -117,6 +118,7 @@ grunt.initConfig({
   icons8: {
     dev: {
       options: {
+        prefix: 'my-app',
         cssExportPath: 'css/',
         fontExportPath: 'output/',
         fontFilename: 'myFont',
