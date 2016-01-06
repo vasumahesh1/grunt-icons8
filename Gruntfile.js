@@ -32,10 +32,11 @@ module.exports = function(grunt) {
     icons8: {
       dev: {
         options: {
-          cssExportPath: 'css/',
+          cssExportPath: 'output/',
           fontExportPath: 'output/',
           fontFilename: 'myFont',
-          scss: true,
+          // cssFilename: 'fonts',
+          scss: false,
           relativeFontPath: '../assets/fonts/typography'
         },
         archivePath: 'test/app.zip'

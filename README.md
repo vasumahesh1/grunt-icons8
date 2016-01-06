@@ -29,6 +29,7 @@ grunt.initConfig({
       options: {
         prefix: 'my-app',
         cssExportPath: 'css/',
+        cssFilename: 'fonts.scss',
         fontExportPath: 'output/',
         fontFilename: 'myFont',
         scss: true
@@ -38,6 +39,7 @@ grunt.initConfig({
     prod: {
       options: {
         cssExportPath: 'css/',
+        cssFilename: 'fonts.css',
         fontExportPath: 'output/',
         fontFilename: 'myFont',
         relativeFontPath: '../assets/fonts/typography'
@@ -67,6 +69,12 @@ Type: `String`
 Default value: `'./'`
 
 Place to put the zipped CSS or SCSS
+
+#### options.cssFilename
+Type: `String`
+Default value: `null`
+
+Override the default icons8 file name for CSS/SCSS files. (Default is `styles.css` from icons8).
 
 #### options.fontExportPath
 Type: `String`

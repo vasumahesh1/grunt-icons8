@@ -36,6 +36,7 @@ module.exports = function(grunt) {
       cssExportPath: './',
       fontExportPath: './',
       fontFilename: null,
+      cssFilename: null,
       relativeFontPath: null,
       scss: false
     });
@@ -155,6 +156,21 @@ module.exports = function(grunt) {
               grunt.file.write(abspath, content);
 
               var finalCssPath = path.join(options.cssExportPath, filename);
+
+              if (options.cssFilename) {
+                var ext = '.css';
+
+                if (options.scss) {
+                  ext = '.scss';
+                }
+
+                var parts = options.cssFilename.split('.');
+                if (parts[parts.length - 1] !== 'css' && parts[parts.length - 1] !== 'scss') {
+                  options.cssFilename += ext;
+                }
+
+                finalCssPath = path.join(options.cssExportPath, options.cssFilename);
+              }
 
               grunt.file.copy(abspath, finalCssPath);
             }
