@@ -1,7 +1,7 @@
 {
   "name": "grunt-icons8",
   "description": "Grunt task for Integrating with Icons8",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "homepage": "https://github.com/vasumahesh1/grunt-icons8",
   "author": {
     "name": "Vasu Mahesh",
