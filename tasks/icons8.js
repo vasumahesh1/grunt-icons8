@@ -56,7 +56,6 @@ module.exports = function(grunt) {
       tempDirectory = dirPath;
       grunt.log.debug('Writing to Path: ' + tempDirectory);
 
-
       // var stream = fs.createReadStream(taskData.archivePath)
       //   .pipe(unzip.Extract({path: tempDirectory}));
 
@@ -66,19 +65,34 @@ module.exports = function(grunt) {
           return done(err);
         }
 
+        grunt.log.debug('Extracted to Path: ' + tempDirectory);
+
         try {
           var previewHtmlPath = path.join(tempDirectory, 'preview.html');
           fs.unlinkSync(previewHtmlPath);
+
+          grunt.log.debug('Deleted Preview HTML: ' + tempDirectory);
 
           var filesToDelete;
           if (options.scss) {
             var cssPath = path.join(tempDirectory, '*.css');
             filesToDelete = grunt.file.expand(cssPath);
-            grunt.file.delete(filesToDelete, {force: true}); // Delete from TempDir
+
+            grunt.log.debug('Deleting files: ', filesToDelete);
+
+            if (filesToDelete.length > 0) {
+              grunt.file.delete(filesToDelete, {force: true}); // Delete from TempDir
+            }
+
           } else {
             var scssPath = path.join(tempDirectory, '*.scss');
             filesToDelete = grunt.file.expand(scssPath);
-            grunt.file.delete(filesToDelete, {force: true}); // Delete from TempDir
+
+            grunt.log.debug('Deleting files: ', filesToDelete);
+
+            if (filesToDelete.length > 0) {
+              grunt.file.delete(filesToDelete, {force: true}); // Delete from TempDir
+            }
           }
         } catch (err) {
           grunt.log.warn('Failed to remove some files.', err);
@@ -109,7 +123,9 @@ module.exports = function(grunt) {
           return false;
         };
 
-        grunt.file.expand(path.join(tempDirectory, FONT_GLOB)).forEach(function(abspath) {
+        grunt.log.debug('Locating Fonts: ' + path.join(tempDirectory, FONT_GLOB));
+
+        grunt.file.expand(path.join(tempDirectory, 'fonts', FONT_GLOB)).forEach(function(abspath) {
           if (grunt.file.isFile(abspath)) {
             grunt.log.debug('Processing File: ' + abspath);
             var fileParts = abspath.split('/');
@@ -131,8 +147,11 @@ module.exports = function(grunt) {
           }
         });
 
+        grunt.log.debug('Locating Fonts: ' + path.join(tempDirectory, CSS_GLOB));
 
-        grunt.file.expand(path.join(tempDirectory, CSS_GLOB)).forEach(function(abspath) {
+        var cssFolder = options.scss ? 'scss' : 'css';
+
+        grunt.file.expand(path.join(tempDirectory, cssFolder, CSS_GLOB)).forEach(function(abspath) {
           var content;
 
           if (grunt.file.isFile(abspath)) {
@@ -147,7 +166,7 @@ module.exports = function(grunt) {
 
               if (options.fontFilename) {
                 var finalRelativePath = path.join((options.relativeFontPath || relativePath), options.fontFilename);
-                var fileReg =  new RegExp('./' + fileHash, 'gm');
+                var fileReg =  new RegExp('../fonts/' + fileHash, 'gm');
                 content = content.replace(fileReg, finalRelativePath);
                 fileReg =  new RegExp(fileHash, 'gm');
                 content = content.replace(fileReg, finalRelativePath);
