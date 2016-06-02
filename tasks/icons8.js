@@ -165,7 +165,7 @@ module.exports = function(grunt) {
               content = content.replace(/icons8/gm, options.prefix);
 
               if (options.fontFilename) {
-                var finalRelativePath = path.join((options.relativeFontPath || relativePath), options.fontFilename);
+                var finalRelativePath = path.posix.join((options.relativeFontPath || relativePath), options.fontFilename);
                 var fileReg =  new RegExp('../fonts/' + fileHash, 'gm');
                 content = content.replace(fileReg, finalRelativePath);
                 fileReg =  new RegExp(fileHash, 'gm');
